@@ -1,0 +1,148 @@
+
+<div class='columns is-multiline has-background-success-light is-mobile is-centered '>
+    <div class='column is-3 is-success h-100'>
+        <a class='button is-small is-fullwidth mt-5' routerLink="/customerdetails">Customer Details</a>
+        <a class='button is-small is-fullwidth mt-2' routerLink="/accountdetails">Account Details</a>
+        <a class='button is-small is-fullwidth mt-2' routerLink="/radioform">Dynamic Form</a>
+        <a class='button is-small is-fullwidth mt-2' routerLink="/buttons">Reusable Buttons</a>
+    </div>
+    <div class='column is-9 has-text-black-bis'>
+        <div class='columns is-multiline h-100'>
+            
+            <div class='column is-12 has-background-warning  is-size-5 is-size-6-mobile has-text-left has-text-left-mobile mt-1 h-10'>
+                    
+                <div *ngIf="router.url === '/customerdetails'; else acHeader">
+                        {{firstName}} {{lastName}}
+                    </div>
+
+                    <ng-template #acHeader>
+                        <div >
+                            <div class='columns is-multiline '>
+                                <div class='column is-1 mt-1'>
+                                    <figure class="image is-32x32">
+                                        <img class="is-rounded" src={{avatar}}>
+                                    </figure>
+                                </div>
+                                <div class='column is-11 mt-1'>
+                                    {{"Passport number: "}} <span class=' is-italic'>{{passport}}</span>
+                                 </div>
+                                
+                            </div>
+                        </div>
+                    </ng-template>
+            </div>
+            
+            
+            <div class='column is-two-fifths has-background-warning-light h-70'>
+
+                <div *ngIf="router.url === '/customerdetails'; else acTrH" >
+                    <ul>
+                        <li *ngFor="let action of list;let i = index">{{i+1}}. {{action}}</li>
+                    </ul>
+                </div>
+
+                <ng-template #acTrH>
+                   
+                        <table class='table'>
+                            <thead>
+                                <th width='5%'>Currency</th>
+                                <th width='25%'>Amount</th>
+                                <th width='65%'>Date</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of tableData">
+                                    <td width='5%'>
+                                      <span><i class={{item.currency}}></i></span>  
+                                    </td>
+                                    <td width='25%'>{{item.amount}}</td>
+                                    <td width='65%'>{{item.date | date:'dd MMM yyyy  hh:mm'}}</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    
+                    
+                </ng-template>
+            </div>
+            
+            
+            <div class='column is-three-fifths has-background-danger-light has-text-grey-darker h-70'>
+                <div *ngIf="router.url === '/customerdetails'; else acSet" >
+                    <div class='columns is-multiline is-centered'>
+                        <div class='column is-4' *ngFor="let suggestion of suggestions">
+                            <ng-container *ngIf='suggestion;else loadingSig'>
+                                <figure class="image is-5by3" >
+                                    <img src={{suggestion}} alt='second content' >
+                                </figure>
+                            </ng-container>
+                            <ng-template #loadingSig>
+                                <span>Loading ...</span>
+                            </ng-template>
+                            
+                        </div>
+                    </div>
+                </div> 
+    
+                <ng-template #acSet>
+                    <div class="field hoverToggle">
+                        <input id="mail" type="checkbox" name="mail" class="switch is-rounded is-outlined is-danger" checked="checked" (input)='setMailNotificiation()'>
+                        <label for="mail" >
+                            <span *ngIf="mailNotification; else notSetMail">You are subscribed for mail notifications</span>
+                            <ng-template #notSetMail>
+                                <span >Subscribe for us. Receive mail notifications</span> 
+                            </ng-template>
+                           
+                        </label>
+                    </div>
+
+                    <div class="field hoverToggle">
+                        <input id="desktop" type="checkbox" name="desktop" class="switch is-rounded is-outlined is-danger" checked="checked" (input)='setDesktopNotificiation()'>
+                        <label for="desktop">
+                            <span *ngIf="desktopNotification; else notSetDesktop">You are subscribed for desktop notifications</span>
+                            <ng-template #notSetDesktop>
+                                <span >Subscribe for us. Receive desktop notifications</span> 
+                            </ng-template>
+                           
+                        </label>
+                    </div>
+
+                    <div class="field hoverToggle">
+
+                        <input id="phone" type="checkbox" name="phone" class="switch is-rounded is-outlined is-danger" checked="checked" (input)='setPhoneNotificiation()'>
+                        <label for="phone">
+                            <span *ngIf="phoneNotification; else notSetPhone">You are subscribed for phone notifications</span>
+                            <ng-template #notSetPhone>
+                                <span >Subscribe for us. Receive phone notifications</span> 
+                            </ng-template>
+                        </label>
+                    </div>
+                </ng-template>
+            </div>
+
+            <div class='column is-12 has-background-warning h-20'>
+               <div *ngIf="router.url === '/customerdetails'; else acFooter">
+                    Phone: <span class=' is-italic'>+{{phone}} </span> Email: <span class=' is-italic'>{{mail}}</span>
+               </div> 
+               <ng-template #acFooter>
+                   <div class='is-size-7'>Send us feedback</div>
+                <div class="field mb-1">
+                    <div class="control">
+                      <input class="input mt-1 is-small" type="email" placeholder="yourmail@email.com" (input)='setUserEmail($event.target.value)'>
+                      <ng-container *ngIf="userEmail">
+                          <span class='has-text-success is-size-7 m-0' *ngIf="isEmailValid;else invalidEmail">Valid email</span>
+                          <ng-template #invalidEmail>
+                              <span class='has-text-danger is-size-7 m-0'>Invalid email</span>
+                          </ng-template>
+                      </ng-container>      
+                    </div>
+                  </div>
+                
+                <textarea class="textarea is-small" placeholder='type your message' rows="2"></textarea>
+               </ng-template>
+               
+            </div>
+
+        </div>
+        
+    </div>
+</div>

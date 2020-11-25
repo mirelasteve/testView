@@ -1,0 +1,47 @@
+.smallButton {
+    border-radius: 10vh 40vh;
+    
+}
+.mediumButton {
+    height:10%;
+    width:50%;
+    
+}
+.largeButton {
+    height:20%;
+    width:80%;
+    
+}
+
+    .blackText
+    {
+        color:'black';
+    }
+    .whiteText
+    {
+        color:'white'
+    }
+    .redText
+    {
+        color:'red'
+    }
+    .blueText
+    {
+        color:'blue'!important;
+    }
+    .greenText
+    {
+        color:'green'
+    }
+    .plumText
+    {
+        color:'plum'
+    }
+    .pinkText
+    {
+        color:'pink'
+    }
+    .orangText
+    {
+        color:'orange'
+    }

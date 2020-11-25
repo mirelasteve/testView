@@ -1,0 +1,90 @@
+<form>
+
+<div class='columns is-multiline'>
+    <div class='column is-3'>
+        
+
+            <div class="control border-black">
+
+                <label class="radio" for="sent">
+                    <input id="sent" type="radio"  (click)="setSentStatus(true)" value='sent' name="send" ngModel required> Already sent
+                </label>
+               
+               
+            </div>
+         
+            <div class="control">
+
+               <label class="radio" for="notsent">
+                    <input id="notsent" type="radio" (click)="setSentStatus(false)"  value='notsent' name="send" ngModel required> Not sent yet
+               </label>
+               
+               
+            </div>
+         
+            
+         <!-- </form> -->
+    </div>
+
+    <div class='column is-9' >
+
+        <div *ngIf='isSent; else notSent'>
+            <div class='control'>
+                <label>Upload a file</label>
+                <input class='input' type='file' required>
+            </div>
+            <div class='control'>
+                <label>Date:</label>
+                <input class='input' type='date' required>
+            </div>
+            <label>Comments</label>
+            <textarea class='textarea'></textarea>
+        </div>
+
+
+        <ng-template #notSent>
+            
+            <div class='control'>
+                <label>Double click or choose from options</label>
+                <input class='input' type='number'  (input)='checkForPassport($event.target.value)' (dblclick)='choosePassport($event.target.value)'>
+                <div *ngIf='passport'>Your passport number is {{passport}}</div>
+                <div *ngIf='res && res.length'>
+                    <div class=' pointer' *ngFor="let p of res" (click)='choosePassport(p)'>{{p}}</div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+    <div class='column is-3'>
+        <div class="control">
+
+            <label class="radio" for="urgent">
+                <input id="urgent" type="radio" (click)='setUrgent(true)'  value='urgent' name="urgent" ngModel required> Urgent
+            </label>
+           
+           
+        </div>
+     
+        <div class="control">
+
+           <label class="radio" for="noturgent">
+                <input id="noturgent" type="radio" (click)='setUrgent(false)'  value='noturgent' name="urgent" ngModel required> Not urgent
+           </label>
+           
+           
+        </div>
+    </div>
+    <div class='column is-9'>
+        <div *ngIf='urgent; else notUrgent'>
+           Set Deadline
+            <div class='control'>
+                <input class='input' type='date'>
+            </div>
+        </div>
+        <ng-template #notUrgent>
+            <span>The document is not urgent</span>
+        </ng-template>
+    </div>
+</div>
+
+</form>
